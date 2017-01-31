@@ -22,6 +22,20 @@ namespace YouiApplicationExcercise.Console
             private set { _defaultDataFile = value; }
         }
 
+        private static string _defaultNameFrequencyFile = "namefrequencies.txt";
+        public static string DefaultNameFrequencyFile
+        {
+            get { return _defaultNameFrequencyFile; }
+            private set { _defaultNameFrequencyFile = value; }
+        }
+
+        private static string _defaultAddressesFile = "addresses.txt";
+        public static string DefaultAddressesFile
+        {
+            get { return _defaultAddressesFile; }
+            private set { _defaultAddressesFile = value; }
+        }
+
         #endregion
 
         private static IBootstraper _bootstraper = new Bootstraper();
@@ -39,8 +53,8 @@ namespace YouiApplicationExcercise.Console
             #region Retrieve args
 
             var dataFile = GetArgOrDefault(args, 0, DefaultDataFile);
-            var namesFrequencyFile = @"C:\Users\pedro.costa\Downloads\names.txt";
-            var addressesFile = @"C:\Users\pedro.costa\Downloads\addresses.txt";
+            var namesFrequencyFile = GetArgOrDefault(args, 1, DefaultNameFrequencyFile);
+            var addressesFile = GetArgOrDefault(args, 2, DefaultAddressesFile);
 
             #endregion
 
@@ -51,6 +65,7 @@ namespace YouiApplicationExcercise.Console
             var customerParser = kernel.Get<IStringToModelParser<Customer>>();
             var customerService = kernel.Get<ICustomerService>();
             var consoleWriter = kernel.Get<IConsoleWriter>();
+            var customerFileService = kernel.Get<ICustomerFileService>();
 
             #endregion
 
@@ -61,14 +76,27 @@ namespace YouiApplicationExcercise.Console
             }
 
             IEnumerable<Customer> customers = null;
-            using (var reader = fileSystem.OpenFileReader(dataFile, FileMode.Open))
+            try
             {
-                customers = fileParser.ParseFile(reader, customerParser);
+                using (var reader = fileSystem.OpenFileReader(dataFile, FileMode.Open))
+                {
+                    customers = fileParser.ParseFile(reader, customerParser).ToList();
+                }
+            }
+            catch
+            {
+                consoleWriter.WriteLine("An error ocurred while opening the '{0}' file", dataFile);
+                return;
             }
 
             var firstNameFrequency = customerService.GetFirstNameFrequency(customers);
             var lastNameFrequency = customerService.GetLastNameFrequency(customers);
             var addresses = customerService.GetAddresses(customers);
+
+            customerFileService.GenerateNameFrequencyFile(namesFrequencyFile, firstNameFrequency, lastNameFrequency);
+            customerFileService.GenerateAddressesFile(addressesFile, addresses);
+
+            consoleWriter.WriteLine("Proccess complete.");
         }
 
         private static string GetArgOrDefault(string[] args, int index, string defaultValue)

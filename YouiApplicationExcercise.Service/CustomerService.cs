@@ -38,7 +38,7 @@ namespace YouiApplicationExcercise.Service
                                     Frequency = g.Count()
                                 });
 
-            return frequencies.OrderByDescending(f => f.Frequency).ThenBy(f => f.Name);
+            return frequencies.OrderBy(f => f.Name == "(Blank)" ? 1 : 2).ThenByDescending(f => f.Frequency).ThenBy(f => f.Name);
         }
     }
 }

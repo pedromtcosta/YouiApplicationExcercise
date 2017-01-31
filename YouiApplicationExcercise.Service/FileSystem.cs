@@ -15,5 +15,10 @@ namespace YouiApplicationExcercise.Service
         {
             return new StreamReader(File.Open(path, mode));
         }
+
+        public void WriteAllTextToFile(string file, string text)
+        {
+            File.WriteAllText(file, text);
+        }
     }
 }

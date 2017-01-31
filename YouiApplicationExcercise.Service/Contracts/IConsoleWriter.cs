@@ -1,4 +1,4 @@
-﻿namespace YouiApplicationExcercise.Console
+﻿namespace YouiApplicationExcercise.Service.Contracts
 {
     public interface IConsoleWriter
     {

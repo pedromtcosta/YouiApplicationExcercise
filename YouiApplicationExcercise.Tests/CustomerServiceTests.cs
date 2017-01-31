@@ -147,6 +147,22 @@ namespace YouiApplicationExcercise.Tests
         }
 
         [TestMethod]
+        public void Should_Return_Blank_FirstName_First()
+        {
+            var customers = new List<Customer>
+            {
+                new Customer { FirstName = "" },
+                new Customer { FirstName = "James" },
+                new Customer { FirstName = "James" },
+            };
+
+            var frequencies = _svc.GetFirstNameFrequency(customers).ToArray();
+
+            frequencies[0].Name.Should().Be("(Blank)");
+            frequencies[1].Name.Should().Be("James");
+        }
+
+        [TestMethod]
         public void Should_Return_LastNames_Ordered_Alphabetically()
         {
             var customers = new List<Customer>
@@ -163,6 +179,22 @@ namespace YouiApplicationExcercise.Tests
             frequencies[1].Name.Should().Be("Howe");
             frequencies[2].Name.Should().Be("Owen");
             frequencies[3].Name.Should().Be("Smith");
+        }
+
+        [TestMethod]
+        public void Should_Return_Blank_LastName_First()
+        {
+            var customers = new List<Customer>
+            {
+                new Customer { LastName = "" },
+                new Customer { LastName = "Smith" },
+                new Customer { LastName = "Smith" },
+            };
+
+            var frequencies = _svc.GetLastNameFrequency(customers).ToArray();
+
+            frequencies[0].Name.Should().Be("(Blank)");
+            frequencies[1].Name.Should().Be("Smith");
         }
 
         [TestMethod]

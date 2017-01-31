@@ -40,14 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleWriter.cs" />
+    <Compile Include="Contracts\ICustomerFileService.cs" />
     <Compile Include="Contracts\IFileParser.cs" />
     <Compile Include="Contracts\IFileSystem.cs" />
     <Compile Include="Contracts\IStringToModelParser.cs" />
+    <Compile Include="CustomerFileService.cs" />
     <Compile Include="CustomerParser.cs" />
     <Compile Include="CustomerService.cs" />
     <Compile Include="FileParser.cs" />
     <Compile Include="Contracts\ICustomerService.cs" />
     <Compile Include="FileSystem.cs" />
+    <Compile Include="Contracts\IConsoleWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

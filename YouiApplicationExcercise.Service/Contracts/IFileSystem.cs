@@ -6,5 +6,6 @@ namespace YouiApplicationExcercise.Service.Contracts
     {
         StreamReader OpenFileReader(string path, FileMode mode);
         bool FileExists(string path);
+        void WriteAllTextToFile(string file, string text);
     }
 }
