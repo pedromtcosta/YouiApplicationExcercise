@@ -6,4 +6,4 @@
 ##### ABOUT #####
 This is a simple coding test I created when I applied for a job at Youi Insurance, a Australian insurance company.
 
-While the functionality of this app is quite simple, it still uses some insteresting stuff, such as Inversion of Control and TDD (and of course, Unit Tests).
+While the functionality of this app is quite simple, it still uses some insteresting stuff, such as Inversion of Control and TDD.
